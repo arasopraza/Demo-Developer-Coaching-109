@@ -16,6 +16,16 @@ class ProductsService {
 		const result = await this._pool.query(query);
 		return result.rows[0].id;
 	}
+
+	async getAllProducts() {
+		const result = await this._pool.query('SELECT * FROM products');
+
+		if (!result.rows.length) {
+      console.log('Produk tidak ditemukan');
+    }
+
+		return result.rows;
+	}
 }
 
 module.exports = ProductsService;
