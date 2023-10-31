@@ -4,6 +4,7 @@ class ProductsHandler {
 
 		this.addProductHandler = this.addProductHandler.bind(this);
 		this.getAllProductsHandler = this.getAllProductsHandler.bind(this);
+		this.getOneProductHandler = this.getOneProductHandler.bind(this);
 	}
 
 	async addProductHandler(request, h) {
@@ -34,6 +35,21 @@ class ProductsHandler {
 		});
 			
 		response.code(201);
+		return response;
+	}
+
+	async getOneProductHandler(request, h) {
+		const { id } = request.params;
+		const product = await this._service.getOneProduct(id);
+
+		const response = h.response({
+			status: 'success',
+			message: 'Product berhasil ditampilkan',
+			data: {
+				product
+			}
+		})
+		response.code(200);
 		return response;
 	}
 }
